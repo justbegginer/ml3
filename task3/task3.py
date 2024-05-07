@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 # Загрузка изображения
-image_path = 'img.png'  # Замените на путь к вашему изображению
+image_path = 'img_1.png'  # Замените на путь к вашему изображению
 image = Image.open(image_path)
 image_np = np.array(image)
 
@@ -11,7 +11,7 @@ image_np = np.array(image)
 pixels = image_np.reshape(-1, 3)
 
 # Кластеризация пикселей
-kmeans = KMeans(n_clusters=3)
+kmeans = KMeans(n_clusters=5)
 kmeans.fit(pixels)
 
 # Получение центров кластеров
@@ -23,7 +23,7 @@ clustered_image = clustered_image.reshape(image_np.shape)
 clustered_image = Image.fromarray(clustered_image)
 
 # Сохранение изображения
-clustered_image.save('clustered_image.png')
+clustered_image.save(f'clustered_image.png')
 
 # Создание и сохранение палитры
 palette_image = Image.new('RGB', (centroids.shape[0], 50), color='white')
@@ -34,6 +34,3 @@ for i, color in enumerate(centroids.astype(int)):
 palette_image.save('palette_image.png')
 
 # Визуализация исходного и кластеризованного изображений
-image.show()
-clustered_image.show()
-palette_image.show()
